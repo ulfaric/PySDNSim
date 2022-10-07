@@ -1,0 +1,21 @@
+[project]
+name = "PySDNSim"
+version = "1.0.0"
+authors = [
+  { name="Yifei Ren", email="ryf0510@live.com" },
+]
+description = "A simulation tool for microservices based SDN, with CloudSim Plus 7.3 as backend."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ulfaric/PyMCT"
+"Bug Tracker" = "https://github.com/ulfaric/PyMCT/issues"
+
+[tool.setuptools]
+packages = ["PySDNSim"]
