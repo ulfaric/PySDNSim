@@ -14,8 +14,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/ulfaric/PyMCT"
-"Bug Tracker" = "https://github.com/ulfaric/PyMCT/issues"
+"Homepage" = "https://github.com/ulfaric/PySDNSim"
+"Bug Tracker" = "https://github.com/ulfaric/PySDNSim/issues"
 
 [tool.setuptools]
 packages = ["PySDNSim"]

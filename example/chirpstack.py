@@ -1,7 +1,6 @@
 import random
 from copy import deepcopy
 from typing import List
-from zoneinfo import available_timezones
 
 import pandas as pd
 import plotly.graph_objects as go
