@@ -155,6 +155,7 @@ class Backend:
 
             self._terminator = Thread(target=wait_for_running_process, name="terminator")
             self._terminator.start()
+            self._terminator.join()
         else:
             raise RuntimeWarning(f"Simulation backend has not started yet.")
 

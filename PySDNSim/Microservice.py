@@ -18,7 +18,7 @@ class Microservice:
     _bw_ratio: int
     _auto_scale: List[AutoScale]
 
-    def __init__(self, name: str, size: int, cpus: int, ram: int, bw: int, replicas: int, max_replicas: int,
+    def __init__(self, name: str, size: int, cpus: int, replicas: int, max_replicas: int,
                  cpu_ratio: int, ram_ratio: int, bw_ratio: int):
         """
         Create a new Microservice with the given name, size, cpus, ram, bw, replicas, max_replicas, cpu_ratio, ram_ratio and bw_ratio.
@@ -38,13 +38,13 @@ class Microservice:
         self._name = name
         self._size = size
         self._cpus = cpus
-        self._ram = ram
-        self._bw = bw
         self._replicas = replicas
         self._max_replicas = max_replicas
         self._cpu_ratio = cpu_ratio
         self._ram_ratio = ram_ratio
         self._bw_ratio = bw_ratio
+        self._ram = round(ram_ratio * cpus / (cpu_ratio/100))
+        self._bw = round(bw_ratio * cpus / (cpu_ratio/100))
         self._auto_scale = list()
         
     def add_auto_scale(self, telemetry:str, threshold:float):
