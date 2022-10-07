@@ -116,23 +116,26 @@ microservices.append(ms_redis)
 ns_list = list()
 register_device = create_network_service(
     name="register_device",
-    microservices=[2, 5, 1],
+    microservices=["chirpstack", "redis", "chirpstack_gateway"],
     schdeule=[0, 1, 1],
     schedule_length=[10, 10, 10],
+    ms_pool=microservices
 )
 ns_list.append(register_device)
 read_data = create_network_service(
     name="receive_data",
-    microservices=[1, 0, 2, 4],
+    microservices=["chirpstack_gateway", "mqtt_broker", "chirpstack", "postgresql"],
     schdeule=[0, 1, 2, 3],
     schedule_length=[10, 10, 10, 10],
+    ms_pool=microservices
 )
 ns_list.append(read_data)
 retrive_data = create_network_service(
     name="retrive_data",
-    microservices=[3, 2, 4, 2],
+    microservices=["chirpstack_rest_api", "chirpstack", "postgresql", "chirpstack"],
     schdeule=[0, 1, 2, 3],
     schedule_length=[10, 10, 10, 10],
+    ms_pool=microservices
 )
 ns_list.append(retrive_data)
 

@@ -189,4 +189,7 @@ cython_debug/
 backend.jar
 
 # simulation results data
-config/*
+configs
+configs/*
+results
+results/*

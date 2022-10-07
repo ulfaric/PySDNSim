@@ -117,7 +117,7 @@ class Backend:
             ns_config = {"name": ns.name, "flows": ns.flows, "Job": list()}
             for job in ns.jobs:
                 job_config = {
-                    "ms": job.ms,
+                    "ms": job.ms_id,
                     "length": job.length,
                     "schedule": job.schedule,
                 }

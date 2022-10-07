@@ -1,10 +1,11 @@
+from uuid import uuid4
 from PySDNSim.AutoScale import AutoScale
 from typing import List
 class Microservice:
     """
     Represents a Microservice.
     """
-
+    _id:int
     _name: str
     _size: int
     _cpus: int
@@ -33,6 +34,7 @@ class Microservice:
         :param ram_ratio: amount of ram that each flow consumes.
         :param bw_ratio: amount of bw that each flow consumes.
         """
+        self._id = uuid4()
         self._name = name
         self._size = size
         self._cpus = cpus
@@ -48,7 +50,26 @@ class Microservice:
     def add_auto_scale(self, telemetry:str, threshold:float):
         auto_scale = AutoScale(telemetry, threshold)
         self._auto_scale.append(auto_scale)
+        
+    def __lt__(self, __o: object) -> bool:
+        if self.id > __o.id:
+            return True
+        else:
+            return False
+        
+    def __eq__(self, __o: object) -> bool:
+        if self.id == __o.id:
+            return True
+        else:
+            return False
+        
+    def __hash__(self) -> int:
+        return hash(self.id)
 
+    @property
+    def id(self):
+        return self._id
+    
     @property
     def name(self):
         return self._name
