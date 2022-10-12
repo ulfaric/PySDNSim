@@ -84,10 +84,20 @@ class NetworkService:
         for job in self.jobs:
             job._schedule = job.schedule + offset
             
-    def get_schedule(self):
+    def get_schedule(self)->List[List[int]]:
+        """Return the schedule of the network service.
+
+        Returns:
+            List[List[int]]: list of schedule in microservice id.
+        """
         schedule = list()
-        for job in self.jobs:
-            schedule.append(job.ms)
+        self.jobs.sort(key=lambda x: x.schedule)
+        for i in range(self.jobs[-1].schedule+1):
+            time_slot = list()
+            for job in self.jobs:
+                if job.schedule == i:
+                    time_slot.append(job.ms_id)
+            schedule.append(time_slot)
         return schedule
 
 def create_network_service(name:str, microservices:List[str], schdeule:List[int], schedule_length:List[int], ms_pool:List[Microservice], flows:int=1) -> NetworkService:

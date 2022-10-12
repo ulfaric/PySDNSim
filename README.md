@@ -47,79 +47,85 @@ create microservices
         name="mqtt_broker",
         size=512,
         cpus=2,
-        ram=1024,
-        bw=1000,
         replicas=1,
-        max_replicas=1,
+        max_replicas=3,
         cpu_ratio=25,
         ram_ratio=32,
         bw_ratio=25,
     )
+    ms_mqtt_broker.add_auto_scale("cpu",0.5)
+    ms_mqtt_broker.add_auto_scale("ram",0.5)
+    ms_mqtt_broker.add_auto_scale("bw",0.5)
     microservices.append(ms_mqtt_broker)
     ms_chirpstack_gateway = Microservice(
         name="chirpstack_gateway",
         size=128,
         cpus=2,
-        ram=1024,
-        bw=1000,
         replicas=1,
-        max_replicas=1,
+        max_replicas=3,
         cpu_ratio=25,
         ram_ratio=32,
         bw_ratio=25,
     )
+    ms_chirpstack_gateway.add_auto_scale("cpu",0.5)
+    ms_chirpstack_gateway.add_auto_scale("ram",0.5)
+    ms_chirpstack_gateway.add_auto_scale("bw",0.5)
     microservices.append(ms_chirpstack_gateway)
     ms_chirpstack = Microservice(
         name="chirpstack",
         size=128,
         cpus=4,
-        ram=2048,
-        bw=1000,
         replicas=1,
-        max_replicas=1,
+        max_replicas=3,
         cpu_ratio=10,
         ram_ratio=32,
         bw_ratio=25,
     )
+    ms_chirpstack.add_auto_scale("cpu",0.5)
+    ms_chirpstack.add_auto_scale("ram",0.5)
+    ms_chirpstack.add_auto_scale("bw",0.5)
     microservices.append(ms_chirpstack)
     ms_chirpstack_rest_api = Microservice(
         name="chirpstack_rest_api",
         size=128,
         cpus=2,
-        ram=1024,
-        bw=1000,
         replicas=1,
-        max_replicas=1,
+        max_replicas=3,
         cpu_ratio=5,
         ram_ratio=128,
         bw_ratio=25,
     )
+    ms_chirpstack_rest_api.add_auto_scale("cpu",0.5)
+    ms_chirpstack_rest_api.add_auto_scale("ram",0.5)
+    ms_chirpstack_rest_api.add_auto_scale("bw",0.5)
     microservices.append(ms_chirpstack_rest_api)
     ms_postgresql = Microservice(
         name="postgresql",
         size=2048,
         cpus=2,
-        ram=1024,
-        bw=1000,
         replicas=1,
-        max_replicas=1,
+        max_replicas=3,
         cpu_ratio=50,
         ram_ratio=128,
         bw_ratio=100,
     )
+    ms_postgresql.add_auto_scale("cpu",0.5)
+    ms_postgresql.add_auto_scale("ram",0.5)
+    ms_postgresql.add_auto_scale("bw",0.5)
     microservices.append(ms_postgresql)
     ms_redis = Microservice(
         name="redis",
         size=2048,
         cpus=2,
-        ram=1024,
-        bw=1000,
         replicas=1,
-        max_replicas=1,
+        max_replicas=3,
         cpu_ratio=50,
         ram_ratio=128,
         bw_ratio=100,
     )
+    ms_redis.add_auto_scale("cpu",0.5)
+    ms_redis.add_auto_scale("ram",0.5)
+    ms_redis.add_auto_scale("bw",0.5)
     microservices.append(ms_redis)
     
 create network services
