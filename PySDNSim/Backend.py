@@ -105,6 +105,9 @@ class Backend:
                 "cpuRatio": ms.cpu_ratio,
                 "ramRatio": ms.ram_ratio,
                 "bwRatio": ms.bw_ratio,
+                "idleCPU": ms.idle_cpu,
+                "idleRAM": ms.idle_ram,
+                "idleBW": ms.idle_bw,
             }
             ms_config["autoScale"] = list()
             for auto_scale in ms.auto_scale:
