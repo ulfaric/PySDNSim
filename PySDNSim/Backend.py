@@ -20,13 +20,17 @@ class Backend:
     _terminator: Thread
     _backend_thread_queue: List[Thread]
     _running_backend_threads: List[Thread]
+    _debug:bool
 
-    def __init__(self, max_num_threads: int = 4):
+    def __init__(self, max_num_threads: int = 4, debug: bool = False):
+        self._debug = debug
         if os.path.isfile("backend.jar"):
-            logger.info("Found simulation backend executable file.")
+            if self.debug:
+                logger.info("Found simulation backend executable file.")
             self._ready = True
         else:
-            logger.error("Can not find simulation backend executable file.")
+            if self.debug:
+                logger.error("Can not find simulation backend executable file.")
             self._ready = False
         self._terminated = False
         self._max_num_threads = max_num_threads
@@ -60,6 +64,10 @@ class Backend:
     @property
     def running_backend_threads(self):
         return self._running_backend_threads
+    
+    @property
+    def debug(self):
+        return self._debug
 
     @staticmethod
     def generate_config(
@@ -129,7 +137,7 @@ class Backend:
 
         if os.path.exists("configs") is False:
             os.makedirs("configs")
-
+        
         logger.info(f"Generated new simulation configuration file\t {config_file}.")
         with open("configs/" + config_file, "w+") as config_file:
             json.dump(sim_config, config_file, indent=4)
@@ -150,6 +158,7 @@ class Backend:
                     for thread in self.running_backend_threads:
                         if thread.is_alive():
                             all_threads_complete = False
+                            thread.join()
                             break
                         else:
                             continue
@@ -209,7 +218,7 @@ class Backend:
                         logger.info(f"Experiment\t {backend_thread.name} \tfinsihed.")
 
             while (
-                len(self.running_backend_threads) < 6
+                len(self.running_backend_threads) < self.max_num_threads
                 and len(self.backend_thread_queue) != 0
             ):
                 backend_thread = self.backend_thread_queue.pop(0)

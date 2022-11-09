@@ -3,9 +3,9 @@ from copy import deepcopy
 from typing import List
 
 import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
-from dash import Dash, Input, Output, dcc, html
+# import plotly.graph_objects as go
+# import plotly.express as px
+# from dash import Dash, Input, Output, dcc, html
 from PySDNSim.Backend import Backend
 from PySDNSim.Config import Config
 from PySDNSim.Experiment import Experiment
@@ -27,7 +27,7 @@ host = Host(
     storage=102400,
     max_power=750.0,
     static_power=300.0,
-    replicas=5,
+    replicas=10,
 )
 
 # create microservices.
@@ -37,7 +37,7 @@ ms_mqtt_broker = Microservice(
     size=512,
     cpus=2,
     replicas=1,
-    max_replicas=3,
+    max_replicas=10,
     cpu_ratio=25,
     ram_ratio=32,
     bw_ratio=25,
@@ -51,7 +51,7 @@ ms_chirpstack_gateway = Microservice(
     size=128,
     cpus=2,
     replicas=1,
-    max_replicas=3,
+    max_replicas=10,
     cpu_ratio=25,
     ram_ratio=32,
     bw_ratio=25,
@@ -65,7 +65,7 @@ ms_chirpstack = Microservice(
     size=128,
     cpus=4,
     replicas=1,
-    max_replicas=3,
+    max_replicas=10,
     cpu_ratio=10,
     ram_ratio=32,
     bw_ratio=25,
@@ -79,7 +79,7 @@ ms_chirpstack_rest_api = Microservice(
     size=128,
     cpus=2,
     replicas=1,
-    max_replicas=3,
+    max_replicas=10,
     cpu_ratio=5,
     ram_ratio=128,
     bw_ratio=25,
@@ -93,7 +93,7 @@ ms_postgresql = Microservice(
     size=2048,
     cpus=2,
     replicas=1,
-    max_replicas=3,
+    max_replicas=10,
     cpu_ratio=50,
     ram_ratio=128,
     bw_ratio=100,
@@ -107,7 +107,7 @@ ms_redis = Microservice(
     size=2048,
     cpus=2,
     replicas=1,
-    max_replicas=3,
+    max_replicas=10,
     cpu_ratio=50,
     ram_ratio=128,
     bw_ratio=100,
@@ -175,9 +175,9 @@ baseline_retrive_data = Experiment(
 )
 backend.add_experiment(experiment=baseline_retrive_data, output_path="./results")
 
-chosen_ns: List[NetworkService] = deepcopy(random.choices(ns_list, k=50))
+chosen_ns: List[NetworkService] = deepcopy(random.choices(ns_list, k=100))
 # server network service one by one
-for iter in range(50):
+for iter in range(100):
     experiment = Experiment(
         name=f"1_ns_{iter}",
         config=sim_config,
@@ -187,7 +187,7 @@ for iter in range(50):
     )
     backend.add_experiment(experiment=experiment, output_path="./results/1_ns/")
 
-for iter in range(10):
+for iter in range(20):
     experiment = Experiment(
         name=f"5_ns_{iter}",
         config=sim_config,
@@ -198,7 +198,7 @@ for iter in range(10):
     backend.add_experiment(experiment=experiment, output_path="./results/5_ns/")
 
 
-for iter in range(5):
+for iter in range(10):
     experiment = Experiment(
         name=f"10_ns_{iter}",
         config=sim_config,
@@ -220,7 +220,7 @@ df = pd.read_csv(f"results\\retrive_data_baseline\\NSummary.csv")
 retrive_data_delay = df.loc[0, "finish"] - df.loc[0, "start"]
 
 df_1_ns = pd.DataFrame(columns=['power'])
-for i in range(50):
+for i in range(100):
     df_i = pd.read_csv(f"results\\1_ns\\1_ns_{i}\\DC.csv")
     df_i = df_i.loc[:,["power"]]
     df_1_ns=pd.concat([df_1_ns,df_i],ignore_index=True)
@@ -228,7 +228,7 @@ df_1_ns.index.name = "sample"
 df_1_ns.to_csv("results\\1_ns\\1_ns_power.csv")
 
 df_5_ns = pd.DataFrame(columns=['power'])
-for i in range(10):
+for i in range(20):
     df_i = pd.read_csv(f"results\\5_ns\\5_ns_{i}\\DC.csv")
     df_i = df_i.loc[:,["power"]]
     df_5_ns=pd.concat([df_5_ns,df_i],ignore_index=True)
@@ -236,7 +236,7 @@ df_5_ns.index.name = "sample"
 df_5_ns.to_csv("results\\5_ns\\5_ns_power.csv")
 
 df_10_ns = pd.DataFrame(columns=['power'])
-for i in range(5):
+for i in range(10):
     df_i = pd.read_csv(f"results\\10_ns\\10_ns_{i}\\DC.csv")
     df_i = df_i.loc[:,["power"]]
     df_10_ns=pd.concat([df_10_ns,df_i],ignore_index=True)
