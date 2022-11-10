@@ -3,9 +3,9 @@ from copy import deepcopy
 from typing import List
 
 import pandas as pd
-import plotly.graph_objects as go
-import plotly.express as px
-from dash import Dash, Input, Output, dcc, html
+# import plotly.graph_objects as go
+# import plotly.express as px
+# from dash import Dash, Input, Output, dcc, html
 from PySDNSim.Backend import Backend
 from PySDNSim.Config import Config
 from PySDNSim.Experiment import Experiment
