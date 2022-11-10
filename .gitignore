@@ -193,3 +193,6 @@ configs
 configs/*
 results
 results/*
+
+share
+share/*

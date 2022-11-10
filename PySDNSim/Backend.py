@@ -151,19 +151,11 @@ class Backend:
 
     def stop(self):
         if self.main_thread.is_alive():
+            
             def wait_for_running_process():
-                all_threads_complete = False
-                while all_threads_complete is not True:
-                    all_threads_complete = True
-                    for thread in self.running_backend_threads:
-                        if thread.is_alive():
-                            all_threads_complete = False
-                            thread.join()
-                            break
-                        else:
-                            continue
-                if all_threads_complete:
-                    self._terminated = True
+                while len(self._running_backend_threads) > 0:
+                    pass
+                self._terminated = True
 
             self._terminator = Thread(target=wait_for_running_process, name="terminator")
             self._terminator.start()
@@ -220,6 +212,7 @@ class Backend:
             while (
                 len(self.running_backend_threads) < self.max_num_threads
                 and len(self.backend_thread_queue) != 0
+                and self.terminated != True
             ):
                 backend_thread = self.backend_thread_queue.pop(0)
                 self._running_backend_threads.append(backend_thread)
