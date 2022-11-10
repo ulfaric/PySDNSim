@@ -153,7 +153,7 @@ class Backend:
         if self.main_thread.is_alive():
             
             def wait_for_running_process():
-                while len(self._running_backend_threads) > 0:
+                while len(self.running_backend_threads) > 0 or len(self.backend_thread_queue) > 0:
                     pass
                 self._terminated = True
 
