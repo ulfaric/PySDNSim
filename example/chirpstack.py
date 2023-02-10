@@ -148,8 +148,7 @@ retrive_data = create_network_service(
 ns_list.append(retrive_data)
 
 # find baseline for each network service
-backend = Backend(max_num_threads=2)
-backend.start()
+backend = Backend()
 baseline_register_device = Experiment(
     name="register_device_baseline",
     config=sim_config,
@@ -157,7 +156,7 @@ baseline_register_device = Experiment(
     microservices=microservices,
     network_services=[register_device],
 )
-backend.add_experiment(experiment=baseline_register_device, output_path="./results")
+backend.run_experiment(experiment=baseline_register_device, output_path="./results")
 baseline_receive_data = Experiment(
     name="receive_data_baseline",
     config=sim_config,
@@ -165,7 +164,7 @@ baseline_receive_data = Experiment(
     microservices=microservices,
     network_services=[read_data],
 )
-backend.add_experiment(experiment=baseline_receive_data, output_path="./results")
+backend.run_experiment(experiment=baseline_receive_data, output_path="./results")
 baseline_retrive_data = Experiment(
     name="retrive_data_baseline",
     config=sim_config,
@@ -173,7 +172,7 @@ baseline_retrive_data = Experiment(
     microservices=microservices,
     network_services=[retrive_data],
 )
-backend.add_experiment(experiment=baseline_retrive_data, output_path="./results")
+backend.run_experiment(experiment=baseline_retrive_data, output_path="./results")
 
 chosen_ns: List[NetworkService] = deepcopy(random.choices(ns_list, k=100))
 # server network service one by one
@@ -185,7 +184,7 @@ for iter in range(100):
         microservices=microservices,
         network_services=[chosen_ns[iter]],
     )
-    backend.add_experiment(experiment=experiment, output_path="./results/1_ns/")
+    backend.run_experiment(experiment=experiment, output_path="./results/1_ns/")
 
 for iter in range(20):
     experiment = Experiment(
@@ -195,7 +194,7 @@ for iter in range(20):
         microservices=microservices,
         network_services=chosen_ns[iter*5:(iter+1)*5],
     )
-    backend.add_experiment(experiment=experiment, output_path="./results/5_ns/")
+    backend.run_experiment(experiment=experiment, output_path="./results/5_ns/")
 
 
 for iter in range(10):
@@ -206,8 +205,8 @@ for iter in range(10):
         microservices=microservices,
         network_services=chosen_ns[iter*10:(iter+1)*10],
     )
-    backend.add_experiment(experiment=experiment, output_path="./results/10_ns/")
-backend.stop()
+    backend.run_experiment(experiment=experiment, output_path="./results/10_ns/")
+
 
 
 df = pd.read_csv(f"results\\register_device_baseline\\NSummary.csv")

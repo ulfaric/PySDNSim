@@ -158,7 +158,6 @@ create network services
     
 start a simulation that randomly select network services at each iteration.
 
-    backend.start()
     for iter in range(10):
         num_ns = random.randint(1, 20)
         chosen_ns: List[NetworkService] = deepcopy(random.choices(ns_list, k=num_ns))
@@ -171,5 +170,4 @@ start a simulation that randomly select network services at each iteration.
             microservices=microservices,
             network_services=chosen_ns,
         )
-        backend.add_experiment(experiment=experiment, output_path="./results")
-    backend.stop()
+        backend.run_experiment(experiment=experiment, output_path="./results")
