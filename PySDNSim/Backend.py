@@ -49,6 +49,7 @@ class Backend:
         microservices: List[Microservice],
         network_services: List[NetworkService],
         config_file: str,
+        debug: bool = False,
     ):
         sim_config = dict()
         sim_config["Config"] = {
@@ -110,8 +111,8 @@ class Backend:
 
         if os.path.exists("configs") is False:
             os.makedirs("configs")
-        
-        logger.info(f"Generated new simulation configuration file\t {config_file}.")
+        if debug:
+            logger.info(f"Generated new simulation configuration file\t {config_file}.")
         with open("configs/" + config_file, "w+") as file:
             json.dump(sim_config, file, indent=4)
 
@@ -128,6 +129,7 @@ class Backend:
                     microservices=experiment.microservices,
                     network_services=experiment.network_services,
                     config_file=config_file,
+                    debug = self.debug
                 )
 
                 subprocess.call(
@@ -139,7 +141,8 @@ class Backend:
                             output_path + "/" + experiment.name,
                         ]
                     )
-                logger.info(f"Simulation completed for experiment\t {experiment.name}.")
+                if self.debug:
+                    logger.info(f"Simulation completed for experiment\t {experiment.name}.")
 
         else:
             raise RuntimeError("Simulation backend executable file is missing.")
