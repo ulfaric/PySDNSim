@@ -1,5 +1,5 @@
 # PySDNSim
-This is a simulation tool for microservice based SDN. It uses a executable jar built upon CloudSim Plus (https://cloudsimplus.org/) as the backend.
+This is a simulation tool for microservice based SDN. It uses a executable jar built upon CloudSim Plus (https://cloudsimplus.org/) as the backend, specifically "org.cloudsimplus:cloudsim-plus:7.3.0"
 
 The backend jar is available from https://drive.google.com/file/d/1PWtYCWDBRV02VcOD1kn_J-lLbsxyfXhT/view?usp=sharing.
 

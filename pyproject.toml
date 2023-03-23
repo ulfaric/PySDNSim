@@ -1,6 +1,6 @@
 [project]
 name = "PySDNSim"
-version = "1.2.4"
+version = "1.2.5"
 authors = [
   { name="Yifei Ren", email="ryf0510@live.com" },
 ]

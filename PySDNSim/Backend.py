@@ -32,11 +32,6 @@ class Backend:
     @property
     def ready(self):
         return self._ready
-
-    @property
-    def main_thread(self):
-        return self._main_thread
-
     
     @property
     def debug(self):
