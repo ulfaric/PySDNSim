@@ -3,7 +3,10 @@ This is a simulation tool for microservice based SDN. It uses a executable jar b
 
 The backend jar is available from https://drive.google.com/file/d/1PWtYCWDBRV02VcOD1kn_J-lLbsxyfXhT/view?usp=sharing.
 
-The backend.jar must be put into the same directory as your program.
+The backend.jar must be put into the same directory as your program. The JRE is below (Other distribution will result in error, this is why I hate java...):
+https://community.chocolatey.org/packages/microsoft-openjdk11
+
+Here is my new version of the simulation built purely upon Python: https://ulfaric.github.io/PyCloudSim-legacy/
 
 ## Example
 
